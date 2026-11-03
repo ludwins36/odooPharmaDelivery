@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Vista Tree -->
+    <record id="prestashop_backend_view_tree" model="ir.ui.view">
+        <field name="name">prestashop.backend.tree</field>
+        <field name="model">prestashop.backend</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="prestashop_url"/>
+                <field name="product_count"/>
+                <field name="customer_count"/>
+                <field name="order_count"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vista Form -->
+    <record id="prestashop_backend_view_form" model="ir.ui.view">
+        <field name="name">prestashop.backend.form</field>
+        <field name="model">prestashop.backend</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_generate_new_api_key" string="Generar nueva API Key" 
+                            type="object" class="btn-secondary" confirm="¿Está seguro? La API Key anterior dejará de funcionar."/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_products" type="object" class="oe_stat_button" icon="fa-cube">
+                            <field name="product_count" widget="statinfo" string="Productos"/>
+                        </button>
+                        <button name="action_view_customers" type="object" class="oe_stat_button" icon="fa-users">
+                            <field name="customer_count" widget="statinfo" string="Clientes"/>
+                        </button>
+                        <button name="action_view_orders" type="object" class="oe_stat_button" icon="fa-shopping-cart">
+                            <field name="order_count" widget="statinfo" string="Órdenes"/>
+                        </button>
+                        <button name="action_view_logs" type="object" class="oe_stat_button" icon="fa-list">
+                            <span>Logs</span>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Archivado" bg_color="bg-danger" invisible="active"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Nombre del backend"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Conexión">
+                            <field name="prestashop_url" placeholder="https://mitienda.com"/>
+                            <field name="api_key" widget="CopyClipboardChar"/>
+                            <field name="active"/>
+                        </group>
+                        <group string="Configuración">
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="auto_confirm_orders"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Documentación API">
+                            <div class="alert alert-info" role="alert">
+                                <h4>Endpoints disponibles</h4>
+                                <p>Todos los endpoints requieren el header <code>X-API-Key</code> con la API Key de este backend.</p>
+                                <hr/>
+                                <h5>Health Check</h5>
+                                <code>GET /api/v1/health</code>
+                                <hr/>
+                                <h5>Productos</h5>
+                                <code>POST /api/v1/products</code> - Crear/actualizar producto<br/>
+                                <code>GET /api/v1/products</code> - Listar productos<br/>
+                                <code>GET /api/v1/products/{id}</code> - Obtener producto<br/>
+                                <code>POST /api/v1/products/bulk</code> - Crear múltiples productos<br/>
+                                <hr/>
+                                <h5>Clientes</h5>
+                                <code>POST /api/v1/customers</code> - Crear/actualizar cliente<br/>
+                                <code>GET /api/v1/customers</code> - Listar clientes<br/>
+                                <code>GET /api/v1/customers/{id}</code> - Obtener cliente<br/>
+                                <code>POST /api/v1/customers/bulk</code> - Crear múltiples clientes<br/>
+                                <hr/>
+                                <h5>Atributos</h5>
+                                <code>POST /api/v1/attributes</code> - Crear/actualizar atributo<br/>
+                                <code>GET /api/v1/attributes</code> - Listar atributos<br/>
+                                <code>POST /api/v1/attributes/bulk</code> - Crear múltiples atributos<br/>
+                                <hr/>
+                                <h5>Categorías</h5>
+                                <code>POST /api/v1/categories</code> - Crear/actualizar categoría<br/>
+                                <code>GET /api/v1/categories</code> - Listar categorías<br/>
+                                <code>POST /api/v1/categories/bulk</code> - Crear múltiples categorías<br/>
+                                <hr/>
+                                <h5>Órdenes</h5>
+                                <code>POST /api/v1/orders</code> - Crear cotización<br/>
+                                <code>GET /api/v1/orders</code> - Listar órdenes<br/>
+                                <code>GET /api/v1/orders/{id}</code> - Obtener orden<br/>
+                                <code>POST /api/v1/orders/{id}/confirm</code> - Confirmar orden<br/>
+                                <code>POST /api/v1/orders/{id}/cancel</code> - Cancelar orden<br/>
+                            </div>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción -->
+    <record id="prestashop_backend_action" model="ir.actions.act_window">
+        <field name="name">Backends PrestaShop</field>
+        <field name="res_model">prestashop.backend</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crear un backend de PrestaShop
+            </p>
+            <p>
+                Configure la conexión con su tienda PrestaShop para sincronizar datos.
+            </p>
+        </field>
+    </record>
+
+</odoo>

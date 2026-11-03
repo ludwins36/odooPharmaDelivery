@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Menú principal -->
+    <menuitem id="menu_velox_bridge_root"
+        name="Velox Bridge"
+        sequence="50"
+        web_icon="velox_bridge_prestashop,static/description/icon.png"/>
+
+    <!-- Submenú Logs -->
+    <menuitem id="menu_prestashop_logs"
+        name="Logs"
+        parent="menu_velox_bridge_root"
+        action="prestashop_log_action"
+        sequence="90"/>
+
+    <!-- Submenú Configuración -->
+    <menuitem id="menu_prestashop_config"
+        name="Configuración"
+        parent="menu_velox_bridge_root"
+        sequence="100"/>
+
+</odoo>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Categoría del módulo -->
+    <record id="module_category_velox_bridge" model="ir.module.category">
+        <field name="name">Velox Bridge</field>
+        <field name="description">Integración con PrestaShop</field>
+        <field name="sequence">100</field>
+    </record>
+
+    <!-- Grupo Usuario -->
+    <record id="group_prestashop_user" model="res.groups">
+        <field name="name">Usuario</field>
+        <field name="category_id" ref="module_category_velox_bridge"/>
+    </record>
+
+    <!-- Grupo Manager -->
+    <record id="group_prestashop_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="module_category_velox_bridge"/>
+        <field name="implied_ids" eval="[(4, ref('group_prestashop_user'))]"/>
+    </record>
+
+</odoo>
